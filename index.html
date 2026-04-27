@@ -14,11 +14,11 @@
       --ink:       #0f1117;
       --ink-soft:  #3d4152;
       --ink-muted: #767b8a;
-      --gold:      #c9a84c;
-      --gold-lt:   #e8d08a;
-      --gold-bg:   #fdf8ee;
-      --surface:   #ffffff;
-      --border:    #e8e9ed;
+      --gold:      #0d9488;   /* teal accent */
+      --gold-lt:   #5eead4;   /* light teal */
+      --gold-bg:   #f0fdfa;   /* teal-tinted surface */
+      --surface:   #f8fffe;   /* soft white */
+      --border:    #d8eceb;   /* teal-tinted border */
       --radius:    14px;
     }
 
@@ -62,14 +62,14 @@
     .hero::before {
       content: ''; position: absolute; inset: 0;
       background:
-        radial-gradient(ellipse 70% 50% at 50% -10%, rgba(201,168,76,0.13) 0%, transparent 70%),
-        radial-gradient(ellipse 40% 30% at 80% 80%, rgba(201,168,76,0.06) 0%, transparent 60%);
+        radial-gradient(ellipse 70% 50% at 50% -10%, rgba(13,148,136,0.11) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 30% at 80% 80%, rgba(6,182,212,0.07) 0%, transparent 60%);
       pointer-events: none;
     }
     .hero-devanagari {
       font-size: clamp(52px, 10vw, 100px);
       font-family: 'Playfair Display', serif; font-weight: 400;
-      background: linear-gradient(135deg, #c9a84c 0%, #8b6914 60%, #c9a84c 100%);
+      background: linear-gradient(135deg, #06b6d4 0%, #0d9488 60%, #06b6d4 100%);
       -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
       line-height: 1.1; margin-bottom: 6px;
     }
@@ -81,7 +81,7 @@
       display: inline-flex; align-items: center; gap: 8px;
       background: var(--gold-bg); border: 1px solid var(--gold-lt);
       border-radius: 100px; padding: 9px 22px;
-      font-size: 13px; font-weight: 500; color: #7a5c10; margin-bottom: 44px;
+      font-size: 13px; font-weight: 500; color: #0f766e; margin-bottom: 44px;
     }
     .coming-soon-pill .dot {
       width: 7px; height: 7px; background: var(--gold); border-radius: 50%;
@@ -118,7 +118,7 @@
     .notify-form input::placeholder { color: var(--ink-muted); }
     .notify-form button {
       padding: 14px 24px;
-      background: linear-gradient(135deg, #c9a84c, #8b6914);
+      background: linear-gradient(135deg, #14b8a6, #0d9488);
       color: white; border: none; border-radius: 10px;
       font-size: 15px; font-weight: 600; font-family: 'Inter', sans-serif;
       cursor: pointer; white-space: nowrap;
