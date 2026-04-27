@@ -193,54 +193,6 @@
       font-size: clamp(16px, 2vw, 18px);
       color: var(--ink-soft);
       max-width: 620px;
-      margin-bottom: 52px;
-    }
-
-    /* ── NOTIFY FORM ─────────────────────────────── */
-    .notify-form {
-      display: flex;
-      gap: 10px;
-      width: 100%;
-      max-width: 460px;
-      margin: 0 auto;
-    }
-
-    .notify-form input {
-      flex: 1;
-      padding: 14px 18px;
-      border: 1.5px solid var(--border);
-      border-radius: 10px;
-      font-size: 15px;
-      font-family: 'Inter', sans-serif;
-      color: var(--ink);
-      background: var(--surface);
-      outline: none;
-      transition: border-color 0.2s;
-    }
-
-    .notify-form input:focus { border-color: var(--gold); }
-    .notify-form input::placeholder { color: var(--ink-muted); }
-
-    .notify-form button {
-      padding: 14px 24px;
-      background: linear-gradient(135deg, #c9a84c, #8b6914);
-      color: white;
-      border: none;
-      border-radius: 10px;
-      font-size: 15px;
-      font-weight: 600;
-      font-family: 'Inter', sans-serif;
-      cursor: pointer;
-      white-space: nowrap;
-      transition: opacity 0.2s, transform 0.15s;
-    }
-
-    .notify-form button:hover { opacity: 0.88; transform: translateY(-1px); }
-
-    .notify-note {
-      font-size: 12.5px;
-      color: var(--ink-muted);
-      margin-top: 12px;
     }
 
     /* ── DIVIDER ─────────────────────────────────── */
@@ -423,7 +375,6 @@
 
     /* ── RESPONSIVE ──────────────────────────────── */
     @media (max-width: 720px) {
-      .notify-form { flex-direction: column; }
       .mv-grid { grid-template-columns: 1fr; }
       .nav-badge { display: none; }
     }
@@ -460,11 +411,6 @@
       An AI-native education platform that adapts to every learner, supports every educator, and evolves with every interaction — making learning feel effortless, purposeful, and deeply personal.
     </p>
 
-    <form class="notify-form" onsubmit="handleNotify(event)">
-      <input type="email" id="notify-email" placeholder="Enter your email address" required />
-      <button type="submit">Notify Me</button>
-    </form>
-    <p class="notify-note" id="notify-msg">Be the first to know when we launch. No spam, ever.</p>
   </div>
 
   <hr class="divider" />
@@ -584,17 +530,6 @@
     &copy; 2026 Tattva Education Technologies Pvt. Limited. All rights reserved.
   </footer>
 
-  <script>
-    function handleNotify(e) {
-      e.preventDefault();
-      const input = document.getElementById('notify-email');
-      const msg   = document.getElementById('notify-msg');
-      if (!input.value) return;
-      msg.textContent = "✓ You're on the list! We'll reach out when we launch.";
-      msg.style.color = '#2a7a4b';
-      input.value = '';
-    }
-  </script>
 
 </body>
 </html>
