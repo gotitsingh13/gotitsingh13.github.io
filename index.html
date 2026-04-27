@@ -55,19 +55,12 @@
       text-decoration: none;
     }
 
-    .logo-mark {
-      width: 36px;
-      height: 36px;
-      background: linear-gradient(135deg, #c9a84c, #8b6914);
-      border-radius: 9px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: 'Playfair Display', serif;
-      font-size: 18px;
-      color: white;
-      font-weight: 600;
+    .logo-img {
+      height: 40px;
+      width: auto;
       flex-shrink: 0;
+      object-fit: contain;
+      display: block;
     }
 
     .logo-text {
@@ -193,6 +186,54 @@
       font-size: clamp(16px, 2vw, 18px);
       color: var(--ink-soft);
       max-width: 620px;
+      margin-bottom: 52px;
+    }
+
+    /* ── NOTIFY FORM ─────────────────────────────── */
+    .notify-form {
+      display: flex;
+      gap: 10px;
+      width: 100%;
+      max-width: 460px;
+      margin: 0 auto;
+    }
+
+    .notify-form input {
+      flex: 1;
+      padding: 14px 18px;
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      font-size: 15px;
+      font-family: 'Inter', sans-serif;
+      color: var(--ink);
+      background: var(--surface);
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .notify-form input:focus { border-color: var(--gold); }
+    .notify-form input::placeholder { color: var(--ink-muted); }
+
+    .notify-form button {
+      padding: 14px 24px;
+      background: linear-gradient(135deg, #c9a84c, #8b6914);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-size: 15px;
+      font-weight: 600;
+      font-family: 'Inter', sans-serif;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: opacity 0.2s, transform 0.15s;
+    }
+
+    .notify-form button:hover { opacity: 0.88; transform: translateY(-1px); }
+
+    .notify-note {
+      font-size: 12.5px;
+      color: var(--ink-muted);
+      margin-top: 12px;
     }
 
     /* ── DIVIDER ─────────────────────────────────── */
@@ -375,6 +416,7 @@
 
     /* ── RESPONSIVE ──────────────────────────────── */
     @media (max-width: 720px) {
+      .notify-form { flex-direction: column; }
       .mv-grid { grid-template-columns: 1fr; }
       .nav-badge { display: none; }
     }
@@ -385,7 +427,7 @@
   <!-- NAV -->
   <nav>
     <a class="logo" href="#">
-      <div class="logo-mark">त</div>
+      <img src="tattva_logo_header.png" alt="Tattva Education Technologies" class="logo-img" />
       <div class="logo-text">
         <span class="logo-name">Tattva</span>
         <span class="logo-sub">Education Technologies</span>
@@ -396,8 +438,8 @@
 
   <!-- HERO -->
   <div class="hero">
-    <div class="hero-devanagari">तत्त्व</div>
-    <p class="hero-tagline">The fundamental truth of learning</p>
+    <div class="hero-devanagari">Tattva|तत्त्व</div>
+    <p class="hero-tagline">a fundamentally new architecture of learning</p>
 
     <div class="coming-soon-pill">
       <span class="dot"></span>
@@ -411,6 +453,11 @@
       An AI-native education platform that adapts to every learner, supports every educator, and evolves with every interaction — making learning feel effortless, purposeful, and deeply personal.
     </p>
 
+    <form class="notify-form" onsubmit="handleNotify(event)">
+      <input type="email" id="notify-email" name="email" placeholder="Enter your email address" required />
+      <button type="submit">Notify Me</button>
+    </form>
+    <p class="notify-note" id="notify-msg">Be the first to know when we launch. No spam, ever.</p>
   </div>
 
   <hr class="divider" />
@@ -530,6 +577,48 @@
     &copy; 2026 Tattva Education Technologies Pvt. Limited. All rights reserved.
   </footer>
 
+  <script>
+    async function handleNotify(e) {
+      e.preventDefault();
+      const input = document.getElementById('notify-email');
+      const btn   = e.submitter;
+      const msg   = document.getElementById('notify-msg');
+      const email = input.value.trim();
+      if (!email) return;
+
+      btn.disabled    = true;
+      btn.textContent = 'Saving…';
+      msg.style.color = 'var(--ink-muted)';
+      msg.textContent = 'Submitting…';
+
+      try {
+        const res  = await fetch('https://formspree.io/f/xzdyqowg', {
+          method:  'POST',
+          headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+          body:    JSON.stringify({ email }),
+        });
+        const data = await res.json();
+
+        if (res.ok) {
+          msg.textContent = "\u2713 You're on the list! We'll reach out when we launch.";
+          msg.style.color = '#2a7a4b';
+          input.value = '';
+        } else {
+          const errMsg = data.errors
+            ? data.errors.map(err => err.message).join(', ')
+            : 'Something went wrong. Please try again.';
+          msg.textContent = errMsg;
+          msg.style.color = '#c0392b';
+        }
+      } catch {
+        msg.textContent = 'Network error — please try again later.';
+        msg.style.color = '#c0392b';
+      } finally {
+        btn.disabled    = false;
+        btn.textContent = 'Notify Me';
+      }
+    }
+  </script>
 
 </body>
 </html>
